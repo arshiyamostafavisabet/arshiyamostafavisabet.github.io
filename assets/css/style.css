@@ -5,6 +5,17 @@
   --bright-cyan: #3cd2f9;
   --electric-cyan: #4af3f8;
   --white: #ffffff;
+  --ink: #071942;
+  --surface: #eef7ff;
+  --surface-alt: #dceeff;
+  --muted: #486287;
+  --border: rgba(9, 80, 205, 0.22);
+  --shadow: 0 14px 34px rgba(4, 22, 93, 0.14);
+  --terminal-font: "Cascadia Code", "Cascadia Mono", Consolas, "Courier New", monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
 .profile-pic {
@@ -50,7 +61,7 @@
   width: 50px;
   height: 50px;
   border: 0;
-  color: #FFFFFF;
+  color: var(--white);
   cursor: pointer;
   font-size: 30px;
   line-height: 70px;
@@ -73,7 +84,7 @@
 
 .icon-btn:hover {
   transform: scale(1.10);
-  color: #FFFFFF;
+  color: var(--white);
 }
 
 .linkedin:hover {
@@ -93,9 +104,9 @@
 .readme {
   position: relative;
   padding: 11px 35px;
-  background: #fff;
+  background: var(--white);
   color: var(--blue);
-  border: 2px solid #fff;
+  border: 2px solid var(--white);
   font-weight: 600;
   font-size: 15px;
   letter-spacing: 1px;
@@ -113,8 +124,8 @@
   position: relative;
   padding: 11px 35px;
   background: none;
-  color: #fff;
-  border: 2px solid #fff;
+  color: var(--white);
+  border: 2px solid var(--white);
   font-weight: 600;
   font-size: 15px;
   letter-spacing: 1px;
@@ -133,8 +144,11 @@
 /* body-color */
 
 body {
-  color: #333;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--terminal-font);
   font-size: 18px;
+  letter-spacing: 0;
 }
 
 /* body {
@@ -150,6 +164,10 @@ body {
 
 a {
   color: var(--blue);
+}
+
+a:hover {
+  color: var(--navy);
 }
 
 /* main blockqoute */
@@ -184,7 +202,7 @@ blockquote * {
 /* main nav */
 
 nav {
-  background: white;
+  background: var(--surface);
   box-shadow: none;
   height: 0;
 }
@@ -209,7 +227,7 @@ nav i {
 } */
 
 main {
-  background: url(../../assets/img/bg.png) repeat;
+  background: linear-gradient(135deg, var(--surface) 0%, var(--surface-alt) 100%);
   padding-left: 190px;
 }
 
@@ -266,8 +284,8 @@ ul.table-of-contents li.logo a.active, ul.table-of-contents li.logo a:hover {
 } */
 
 ul.side-nav.fixed li.logo {
-  background-color: #fafafa;
-  border-bottom: 1px solid #ddd;
+  background-color: var(--surface);
+  border-bottom: 1px solid var(--border);
   box-sizing: content-box;
   min-height: 90px;
   padding: 30px 30px 40px;
@@ -279,12 +297,12 @@ ul.side-nav.fixed li.logo a {
 }
 
 ul.table-of-contents li:not(.logo) a.active, ul.table-of-contents li:not(.logo) a:hover {
-  background-color: #fafafa;
+  background-color: var(--surface-alt);
   border-left: 3px solid;
 }
 
 ul.side-nav.fixed.table-of-contents li:not(.logo) a span, ul#slide-out li:not(.logo) a span {
-  color: #333 !important;
+  color: var(--navy) !important;
 }
 
 li.logo span {
@@ -339,13 +357,15 @@ h3 {
 }
 
 .python-modal-backdrop {
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(4, 22, 93, 0.78);
   inset: 0;
   position: absolute;
 }
 
 .python-modal-window {
-  background: #fff;
+  background: var(--surface);
+  border: 1px solid var(--cyan);
+  box-shadow: var(--shadow);
   box-sizing: border-box;
   max-height: 90vh;
   max-width: 850px;
@@ -357,19 +377,20 @@ h3 {
 }
 
 .python-modal-window h4 {
-  color: #00897b;
+  color: var(--navy);
   margin-top: 0;
   padding-right: 36px;
 }
 
 .python-modal-section h5 {
-  color: #555;
+  color: var(--blue);
   margin-bottom: 8px;
 }
 
 .python-modal-section pre {
-  background: #f5f5f5;
-  border-left: 4px solid #00897b;
+  background: var(--navy);
+  border-left: 4px solid var(--electric-cyan);
+  color: var(--white);
   box-sizing: border-box;
   max-height: 260px;
   overflow: auto;
@@ -379,14 +400,14 @@ h3 {
 }
 
 .python-modal-section .python-output {
-  color: #00695c;
+  color: var(--electric-cyan);
   min-height: 60px;
 }
 
 .python-modal-close {
   background: transparent;
   border: 0;
-  color: #555;
+  color: var(--blue);
   cursor: pointer;
   font-size: 30px;
   line-height: 1;
@@ -409,7 +430,7 @@ h3 {
 }
 
 #intro.section .container {
-  color: white;
+  color: var(--white);
   font-weight: 200;
   left: 0;
   position: absolute;
@@ -440,7 +461,7 @@ h3 {
 }
 
 .overlay {
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(4, 22, 93, 0.4);
   height: 100%;
   left: 0;
   position: absolute;
@@ -455,6 +476,9 @@ h3 {
 }
 
 .card {
+  background: rgba(238, 247, 255, 0.9);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
   margin-bottom: 60px;
 }
 
@@ -467,12 +491,12 @@ h3 {
 
 .card li a {
   margin-right: 0;
-  color: #333;
+  color: var(--navy);
   border-bottom: 2px solid var(--cyan);
 }
 
 .card li a:hover {
-  color: #333;
+  color: var(--blue);
   font-weight: 500;
 }
 
@@ -498,7 +522,7 @@ h3 {
 }
 
 #experience .card-action {
-  background-color: rgba(0, 0, 0, 0.02);
+  background-color: rgba(220, 238, 255, 0.7);
   border: none;
 }
 
@@ -512,7 +536,7 @@ h3 {
 
 .card-action span {
   font-size: 85%;
-  color: #666;
+  color: var(--muted);
 }
 
 .card ul {
@@ -526,7 +550,7 @@ h3 {
 }
 
 .card ul li li {
-  color: #666;
+  color: var(--muted);
   font-size: 13px;
 }
 
@@ -586,7 +610,7 @@ a.hoverline:hover {
 }
 
 #experience .card-content .row {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--border);
   padding-bottom: 10px;
 }
 
@@ -627,7 +651,7 @@ small {
 }
 
 .grey-text {
-  color: #666 !important;
+  color: var(--muted) !important;
 }
 
 /* main .teal-text */
@@ -644,6 +668,63 @@ small {
 
 .teal {
   background-color: var(--blue) !important;
+}
+
+#intro h5 {
+  color: var(--white) !important;
+}
+
+#intro .typing {
+  color: var(--electric-cyan) !important;
+}
+
+.page-title {
+  background: linear-gradient(90deg, var(--navy), var(--blue)) !important;
+  color: var(--white) !important;
+  font-family: var(--terminal-font);
+  letter-spacing: 0.08em;
+}
+
+.btn,
+button,
+.readme,
+.contactme {
+  font-family: var(--terminal-font);
+  letter-spacing: 0;
+}
+
+.btn,
+.btn.blue,
+.python-run-button {
+  background-color: var(--blue) !important;
+  color: var(--white) !important;
+}
+
+.btn:hover,
+.btn.blue:hover,
+.python-run-button:hover {
+  background-color: var(--navy) !important;
+}
+
+.btn-floating.blue-grey,
+.icon-btn {
+  background-color: var(--navy);
+  color: var(--electric-cyan);
+}
+
+.icon-btn:hover,
+.btn-floating.blue-grey:hover {
+  background-color: var(--blue);
+  color: var(--white);
+}
+
+input,
+textarea,
+select {
+  background: var(--surface);
+  border-color: var(--border);
+  color: var(--ink);
+  font-family: var(--terminal-font);
 }
 
 /* .teal {
@@ -681,7 +762,7 @@ small {
     width: 100%;
   }
   nav {
-    background: #fff;
+    background: var(--surface);
     height: 64px;
     position: absolute;
   }
