@@ -547,6 +547,22 @@
     </section>
   </main>
 
+  <div id="python-modal" class="python-modal" hidden role="dialog" aria-modal="true" aria-labelledby="python-modal-title">
+    <div class="python-modal-backdrop" data-close-python-modal></div>
+    <div class="python-modal-window">
+      <button type="button" class="python-modal-close" aria-label="Close Python program window" data-close-python-modal>&times;</button>
+      <h4 id="python-modal-title">Python Program</h4>
+      <div class="python-modal-section">
+        <h5>Source Code</h5>
+        <pre id="python-modal-source" class="python-source">Press Run Program to load the script.</pre>
+      </div>
+      <div class="python-modal-section">
+        <h5>Output</h5>
+        <pre id="python-modal-output" class="python-output" aria-live="polite">Program output will appear here.</pre>
+      </div>
+    </div>
+  </div>
+
   <script>
     // Replace these sample objects with your own projects later.
     const projectsData = [
@@ -559,6 +575,7 @@
           "Controls 16 haptic motors with a 12-bit PWM driver.",
           "Uses a Python signal simulator to adjust motor intensity."
         ],
+        pythonScript: "assets/code/helloworld.py",
         liveUrl: "#",
         sourceUrl: "#"
       },
@@ -571,6 +588,7 @@
           "Collects environmental readings at regular intervals.",
           "Provides an easy-to-read status for plant health."
         ],
+        pythonScript: "assets/code/project2.py",
         liveUrl: "#",
         sourceUrl: "#"
       },
@@ -604,31 +622,108 @@
     const loadMoreProjectsButton = document.getElementById("load-more-projects");
     const projectsPerLoad = 2;
     let displayedProjectCount = 0;
+    let pyodidePromise;
+    const pythonModal = document.getElementById("python-modal");
+    const pythonModalTitle = document.getElementById("python-modal-title");
+    const pythonModalSource = document.getElementById("python-modal-source");
+    const pythonModalOutput = document.getElementById("python-modal-output");
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>'"]/g, (character) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        "'": "&#39;",
+        "\"": "&quot;"
+      }[character]));
+    }
+
+    function loadPyodideRuntime() {
+      if (!pyodidePromise) {
+        pyodidePromise = new Promise((resolve, reject) => {
+          const script = document.createElement("script");
+          script.src = "https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js";
+          script.onload = () => window.loadPyodide({
+            indexURL: "https://cdn.jsdelivr.net/pyodide/v0.26.2/full/"
+          }).then(resolve, reject);
+          script.onerror = () => reject(new Error("The Python runtime could not be loaded."));
+          document.head.appendChild(script);
+        });
+      }
+      return pyodidePromise;
+    }
+
+    async function runPythonProject(button) {
+      const scriptPath = button.dataset.script;
+
+      pythonModalTitle.textContent = `${button.dataset.title} - Python Program`;
+      pythonModal.hidden = false;
+      document.body.classList.add("python-modal-open");
+      button.disabled = true;
+      button.textContent = "Running...";
+      pythonModalSource.textContent = "Loading source code...";
+      pythonModalOutput.textContent = "Loading Python...";
+
+      try {
+        const response = await fetch(scriptPath);
+        if (!response.ok) {
+          throw new Error(`Could not load ${scriptPath} (${response.status}).`);
+        }
+        const code = await response.text();
+        pythonModalSource.textContent = code;
+        const pyodide = await loadPyodideRuntime();
+        pyodide.setStdout({
+          batched: (text) => {
+            pythonModalOutput.textContent += `${text}\n`;
+          }
+        });
+        pythonModalOutput.textContent = "";
+        await pyodide.runPythonAsync(code);
+        if (!pythonModalOutput.textContent) {
+          pythonModalOutput.textContent = "Program finished without output.";
+        }
+      } catch (error) {
+        pythonModalOutput.textContent = `Error: ${error.message}`;
+      } finally {
+        button.disabled = false;
+        button.textContent = "Run Program";
+      }
+    }
+
+    function closePythonModal() {
+      pythonModal.hidden = true;
+      document.body.classList.remove("python-modal-open");
+    }
 
     function createProjectCard(project) {
       const accomplishments = project.accomplishments
-        .map((item) => `<li>${item}</li>`)
+        .map((item) => `<li>${escapeHtml(item)}</li>`)
         .join("");
+      const pythonRunner = project.pythonScript ? `
+        <div class="python-project-tools">
+          <button type="button" class="btn blue python-run-button" data-script="${escapeHtml(project.pythonScript)}" data-title="${escapeHtml(project.title)}">Run Program</button>
+        </div>` : "";
 
       return `
         <div class="col s12 m6 l4">
           <div class="card medium">
             <div class="card-image waves-effect waves-block waves-light">
-              <img alt="${project.title}" src="${project.image}" style="height: 100%; width: 100%" class="activator" />
+              <img alt="${escapeHtml(project.title)}" src="${escapeHtml(project.image)}" style="height: 100%; width: 100%" class="activator" />
             </div>
             <div class="card-content">
-              <span class="card-title activator teal-text hoverline">${project.title}<i class="mdi-navigation-more-vert right"></i></span>
-              <p>${project.description}</p>
+              <span class="card-title activator teal-text hoverline">${escapeHtml(project.title)}<i class="mdi-navigation-more-vert right"></i></span>
+              <p>${escapeHtml(project.description)}</p>
             </div>
             <div class="card-reveal">
               <span class="card-title grey-text"><small>Accomplishments</small><i class="mdi-navigation-close right"></i></span>
               <ul>
-                <li><b>Tools:</b> ${project.tools}</li>
+                <li><b>Tools:</b> ${escapeHtml(project.tools)}</li>
                 ${accomplishments}
               </ul>
+              ${pythonRunner}
               <div class="card-action">
-                <a aria-label="View ${project.title} online" href="${project.liveUrl}" target="_blank" rel="noopener" class="btn-floating btn-large waves-effect waves-light blue-grey tooltipped"><i class="fa fa-external-link"></i></a>
-                <a aria-label="View the source for ${project.title}" href="${project.sourceUrl}" target="_blank" rel="noopener" class="btn-floating btn-large waves-effect waves-light blue-grey tooltipped"><i class="fa fa-github"></i></a>
+                <a aria-label="View ${escapeHtml(project.title)} online" href="${escapeHtml(project.liveUrl)}" target="_blank" rel="noopener" class="btn-floating btn-large waves-effect waves-light blue-grey tooltipped"><i class="fa fa-external-link"></i></a>
+                <a aria-label="View the source for ${escapeHtml(project.title)}" href="${escapeHtml(project.sourceUrl)}" target="_blank" rel="noopener" class="btn-floating btn-large waves-effect waves-light blue-grey tooltipped"><i class="fa fa-github"></i></a>
               </div>
             </div>
           </div>
@@ -652,6 +747,25 @@
         loadMoreProjectsButton.textContent = "All Projects Loaded";
       }
     }
+
+    projectsList.addEventListener("click", (event) => {
+      const button = event.target.closest(".python-run-button");
+      if (button) {
+        runPythonProject(button);
+      }
+    });
+
+    pythonModal.addEventListener("click", (event) => {
+      if (event.target.matches("[data-close-python-modal]")) {
+        closePythonModal();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !pythonModal.hidden) {
+        closePythonModal();
+      }
+    });
 
     loadMoreProjectsButton.addEventListener("click", displayProjects);
     displayProjects();
