@@ -1,0 +1,15 @@
+# Design teams, clubs and extracurriculars. Same shape as experience.yml.
+- organization: UTOSS – University of Toronto Open Source Student Club
+  location: Toronto, ON
+  url:
+  logo:
+  roles:
+    - title: Member, RISC-V & Devboard Teams
+      start: Sep 2026
+      end: Present
+      highlights:
+        - Implemented and tested Verilog designs on an Intel DE1-SoC FPGA in Quartus, including a 4-bit counter driven by a 50 MHz-to-1 Hz rate divider and a Moore FSM "101" sequence detector.
+        - Set up the team's Docker-based RISC-V dev environment and cross-compiled RV32I assembly with the RISC-V GCC toolchain; ran it on the team's 5-stage pipelined CPU in simulation and traced instructions through the IF/ID/EX/MEM/WB stages.
+        - Designed the full KiCad schematic in 2 days for a camera test board that replicates a satellite payload's power management, supervisory control, image capture and storage subsystems, built around an STM32F446 (ARM Cortex-M4).
+        - Mapped an OV2640 camera to the STM32's DCMI peripheral and designed USB-C power entry, a TPS22918 camera load switch, SPI microSD storage and SWD programming; passed KiCad ERC with 0 errors and 0 warnings.
+      skills: [Verilog, FPGA, RISC-V, Docker, KiCad, STM32]

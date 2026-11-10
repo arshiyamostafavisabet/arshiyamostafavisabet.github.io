@@ -1,0 +1,6 @@
+{%- assign c = site.data.profile.contact -%}
+<ul class="social-links">
+  {%- if c.email %}<li><a href="mailto:{{ c.email }}">Email</a></li>{% endif %}
+  {%- if c.linkedin %}<li><a href="{{ c.linkedin }}" target="_blank" rel="noopener">LinkedIn</a></li>{% endif %}
+  {%- if c.github %}<li><a href="{{ c.github }}" target="_blank" rel="noopener">GitHub</a></li>{% endif %}
+</ul>

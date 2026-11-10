@@ -1,0 +1,21 @@
+---
+layout: default
+title: Resume
+permalink: /resume/
+body_class: page-resume
+description: Resume of Arshiya Mostafavisabet.
+---
+{%- assign pdf = site.resume_pdf | relative_url -%}
+<section class="section">
+  <div class="container">
+    <div class="section-heading">
+      <h1 class="page-title">Resume</h1>
+      <a class="button button-primary" href="{{ pdf }}" download>Download PDF</a>
+    </div>
+
+    <object class="resume-embed" data="{{ pdf }}" type="application/pdf">
+      <p>Your browser can't display the PDF here.
+        <a href="{{ pdf }}">Open the resume</a> instead.</p>
+    </object>
+  </div>
+</section>

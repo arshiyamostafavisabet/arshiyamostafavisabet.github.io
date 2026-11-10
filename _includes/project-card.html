@@ -1,0 +1,26 @@
+{%- comment -%}
+  Usage: {% include project-card.html project=project %}
+  Renders one project card. All fields come from the project's front matter.
+{%- endcomment -%}
+{%- assign p = include.project -%}
+<article class="project-card" data-areas="{{ p.areas | join: '|' }}">
+  <a class="project-card-link" href="{{ p.url | relative_url }}">
+    <div class="project-card-media">
+      {%- if p.thumbnail %}
+      <img src="{{ p.thumbnail | relative_url }}" alt="{{ p.title }}" loading="lazy">
+      {%- else %}
+      <div class="project-card-placeholder" aria-hidden="true">{{ p.title | slice: 0 }}</div>
+      {%- endif %}
+    </div>
+    <div class="project-card-body">
+      <p class="project-card-meta">
+        {% include date-range.html start=p.date end=p.end_date %}
+        {%- if p.status %} · <span class="status">{{ p.status }}</span>{% endif %}
+      </p>
+      <h3 class="project-card-title">{{ p.title }}</h3>
+      {%- if p.context %}<p class="project-card-context">{{ p.context }}</p>{% endif %}
+      <p class="project-card-summary">{{ p.summary }}</p>
+      {% include skill-chips.html items=p.skills %}
+    </div>
+  </a>
+</article>

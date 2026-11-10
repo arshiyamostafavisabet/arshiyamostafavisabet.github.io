@@ -1,0 +1,31 @@
+{%- comment -%}
+  Usage: {% include timeline-entry.html entry=entry %}
+  Renders one organization from _data/experience.yml or _data/extracurriculars.yml.
+{%- endcomment -%}
+{%- assign e = include.entry -%}
+<article class="timeline-entry">
+  <header class="timeline-header">
+    {%- if e.logo %}<img class="timeline-logo" src="{{ e.logo | relative_url }}" alt="{{ e.organization }} logo" loading="lazy">{% endif %}
+    <div>
+      <h3 class="timeline-org">
+        {%- if e.url %}<a href="{{ e.url }}" target="_blank" rel="noopener">{{ e.organization }}</a>{% else %}{{ e.organization }}{% endif -%}
+      </h3>
+      {%- if e.location %}<p class="timeline-location">{{ e.location }}</p>{% endif %}
+    </div>
+  </header>
+
+  {%- for role in e.roles %}
+  <section class="timeline-role">
+    <div class="timeline-role-header">
+      <h4>{{ role.title }}</h4>
+      <span class="date-range">{{ role.start }} – {{ role.end }}</span>
+    </div>
+    {%- if role.highlights and role.highlights.size > 0 %}
+    <ul class="timeline-highlights">
+      {%- for h in role.highlights %}<li>{{ h | markdownify | remove: '<p>' | remove: '</p>' | strip }}</li>{% endfor %}
+    </ul>
+    {%- endif %}
+    {% include skill-chips.html items=role.skills %}
+  </section>
+  {%- endfor %}
+</article>

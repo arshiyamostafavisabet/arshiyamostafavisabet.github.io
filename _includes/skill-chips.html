@@ -1,0 +1,8 @@
+{%- comment -%}
+  Usage: {% include skill-chips.html items=project.skills %}
+{%- endcomment -%}
+{%- if include.items and include.items.size > 0 -%}
+<ul class="chips">
+  {%- for item in include.items %}<li class="chip">{{ item }}</li>{% endfor %}
+</ul>
+{%- endif -%}

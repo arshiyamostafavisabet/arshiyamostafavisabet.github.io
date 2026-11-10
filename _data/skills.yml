@@ -1,0 +1,24 @@
+# Skill groups shown on the home page. Add, remove or reorder freely.
+- group: Languages
+  items: [C, C++, Verilog, RISC-V Assembly (RV32I), Python]
+
+- group: Embedded Systems
+  items: [STM32 (Cortex-M4), SAMD21 (Cortex-M0+), ESP32, RP2040, ATmega32U4, Arduino]
+
+- group: Digital Design
+  items: [FPGA (Intel DE1-SoC), FSMs, Sequential Logic, Pipelined CPU Architecture, Quartus Prime, ModelSim]
+
+- group: IoT & Wireless
+  items: [LoRaWAN, WiFi, Bluetooth Low Energy]
+
+- group: Protocols
+  items: [I²C, SPI, UART, USB, SWD, 1-Wire]
+
+- group: PCB & Simulation
+  items: [KiCad, LTspice, Fusion 360]
+
+- group: Fabrication & Lab
+  items: [Voltera V1 PCB Printer, 3D Printing, Oscilloscope, Multimeter, Waveform Generator]
+
+- group: Tools
+  items: [Git, Docker, GCC Cross-Compilation, Make, pytest]

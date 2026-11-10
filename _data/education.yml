@@ -1,0 +1,18 @@
+- school: University of Toronto
+  location: Toronto, ON
+  degree: Bachelor of Applied Science in Computer Engineering + PEY Co-op
+  start: Sep 2023
+  end: Apr 2029 (Expected)
+  logo:            # e.g. /assets/images/logos/uoft.png
+  details:
+    - label: Intended Minor
+      value: Engineering Business
+  courses:
+    - Circuit Analysis
+    - Digital Logic
+    - Computer Organization
+    - Intro to Electronic Devices
+    - Signals and Systems
+    - Control Systems
+    - Operating Systems
+    - Software Engineering

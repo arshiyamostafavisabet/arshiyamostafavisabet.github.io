@@ -1,0 +1,68 @@
+---
+layout: default
+body_class: page-project
+---
+{%- assign p = page -%}
+<article class="project container">
+  <a class="back-link" href="{{ '/projects/' | relative_url }}">&larr; All projects</a>
+
+  <header class="project-header">
+    <p class="project-meta">
+      {% include date-range.html start=p.date end=p.end_date %}
+      {%- if p.status %} · <span class="status">{{ p.status }}</span>{% endif %}
+    </p>
+    <h1>{{ p.title }}</h1>
+    {%- if p.summary %}<p class="project-summary">{{ p.summary }}</p>{% endif %}
+
+    <dl class="project-facts">
+      {%- if p.context %}<div><dt>Context</dt><dd>{{ p.context }}</dd></div>{% endif %}
+      {%- if p.role %}<div><dt>Role</dt><dd>{{ p.role }}</dd></div>{% endif %}
+      {%- if p.team %}<div><dt>Team</dt><dd>{{ p.team }}</dd></div>{% endif %}
+    </dl>
+
+    {% include skill-chips.html items=p.skills %}
+
+    {%- assign live_links = p.links | where_exp: "link", "link.url" %}
+    {%- if live_links.size > 0 %}
+    <ul class="project-links">
+      {%- for link in live_links %}
+      <li><a class="button" href="{{ link.url | relative_url }}" target="_blank" rel="noopener">{{ link.label }}</a></li>
+      {%- endfor %}
+    </ul>
+    {%- endif %}
+  </header>
+
+  {%- if p.cover %}
+  <figure class="project-cover">
+    <img src="{{ p.cover | relative_url }}" alt="{{ p.title }}">
+  </figure>
+  {%- endif %}
+
+  {%- if p.metrics and p.metrics.size > 0 %}
+  <ul class="project-metrics">
+    {%- for m in p.metrics %}
+    <li><span class="metric-value">{{ m.value }}</span><span class="metric-label">{{ m.label }}</span></li>
+    {%- endfor %}
+  </ul>
+  {%- endif %}
+
+  <div class="project-content prose">
+    {{ content }}
+  </div>
+
+  {%- if p.gallery and p.gallery.size > 0 %}
+  <section class="project-gallery">
+    <h2>Gallery</h2>
+    <div class="gallery-grid">
+      {%- for img in p.gallery %}
+      <figure>
+        <a href="{{ img.src | relative_url }}" target="_blank" rel="noopener">
+          <img src="{{ img.src | relative_url }}" alt="{{ img.caption | default: p.title }}" loading="lazy">
+        </a>
+        {%- if img.caption %}<figcaption>{{ img.caption }}</figcaption>{% endif %}
+      </figure>
+      {%- endfor %}
+    </div>
+  </section>
+  {%- endif %}
+</article>

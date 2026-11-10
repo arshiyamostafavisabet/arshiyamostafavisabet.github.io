@@ -1,0 +1,5 @@
+{%- comment -%}
+  Usage: {% include date-range.html start=project.date end=project.end_date %}
+  If `end` is empty, the range shows "Present".
+{%- endcomment -%}
+<span class="date-range">{{ include.start | date: "%b %Y" }} – {% if include.end %}{{ include.end | date: "%b %Y" }}{% else %}Present{% endif %}</span>

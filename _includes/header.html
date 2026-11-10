@@ -1,0 +1,20 @@
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="site-logo" href="{{ '/' | relative_url }}">{{ site.data.profile.name }}</a>
+
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav id="site-nav" class="site-nav">
+      <ul>
+        {%- for item in site.data.navigation %}
+        {%- assign item_url = item.url | relative_url %}
+        <li>
+          <a href="{{ item_url }}"{% if page.url == item.url %} aria-current="page"{% endif %}>{{ item.title }}</a>
+        </li>
+        {%- endfor %}
+      </ul>
+    </nav>
+  </div>
+</header>

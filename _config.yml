@@ -1,0 +1,61 @@
+# ---------------------------------------------------------------------------
+# Site settings
+# Changes to this file require restarting `jekyll serve` when previewing locally.
+# ---------------------------------------------------------------------------
+title: Arshiya Mostafavisabet
+description: >-
+  Computer Engineering student at the University of Toronto working on
+  embedded systems, PCB design, firmware and digital hardware.
+url: "https://arshiyamostafavisabet.github.io"
+baseurl: ""               # leave empty for a <username>.github.io repo
+lang: en
+
+author:
+  name: Arshiya Mostafavisabet
+
+# Path to the public resume PDF (drop the file at this location)
+resume_pdf: /assets/files/resume.pdf
+
+# Social-preview image used when the site is shared (optional)
+# image: /assets/images/og/og-image.png
+
+# ---------------------------------------------------------------------------
+# Projects collection: one Markdown file per project in /_projects
+# ---------------------------------------------------------------------------
+collections:
+  projects:
+    output: true
+    permalink: /projects/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: projects
+    values:
+      layout: project
+  - scope:
+      path: ""
+    values:
+      layout: default
+
+# ---------------------------------------------------------------------------
+# Build
+# ---------------------------------------------------------------------------
+markdown: kramdown
+kramdown:
+  input: GFM
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Files that should NOT be published on the site
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - Arshiya-Mostafavisabet-master-resume.pdf
+  - "*.local"
+  - "*.local.*"
+  - vendor
+  - .jekyll-cache

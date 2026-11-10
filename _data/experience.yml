@@ -1,0 +1,32 @@
+# Work experience. One entry per organization; each can have multiple roles
+# (newest first). Dates are display strings.
+- organization: STEMMINDS Corp.
+  location: Aurora, ON
+  url:             # company website (optional)
+  logo:            # e.g. /assets/images/logos/stemminds.png
+  roles:
+    - title: Software Developer
+      start: Sep 2026
+      end: Present
+      highlights: []
+
+    - title: Research & Development Team Member
+      start: May 2026
+      end: Sep 2026
+      highlights:
+        - Led the move from dev boards to a custom PCB in KiCad over 3 design revisions, cutting unit cost 58% ($60 → $25) and tripling analog inputs (2 → 6).
+        - Designed the schematic around a SAMD21G17A (ARM Cortex-M0+) MCU with USB-C and TVS ESD protection, power-rail filtering, buffered analog inputs (5 V sensors protected at the 3.3 V ADC), an SX1262 LoRa transceiver over SPI, and I²C sensor headers.
+        - Built and brought up prototypes in-house on a Voltera V1 PCB printer, adapting KiCad design rules (DRC) to the printer's manufacturing limits.
+        - Designed, built and deployed a Bluetooth water tank gauge using an ultrasonic sensor and an ATmega32U4, turning distance readings into a fill percentage with ±1% accuracy in the field.
+        - Wrote interrupt-driven C++ firmware with a wake-on-connect sleep mode, cutting current draw ~75% (61 mA → 15 mA); stored the tank-height setting in EEPROM so it survives power loss.
+        - Built an Android companion app that connects over BLE (HM-10), shows the live level and lets the user change the tank height remotely.
+      skills: [KiCad, SAMD21, ATmega32U4, LoRa, BLE, C++, Android]
+
+    - title: Technology & Innovation Team Member
+      start: May 2025
+      end: May 2026
+      highlights:
+        - Designed and deployed a LoRaWAN field-monitoring network of 5 sensor nodes across ~8,900 m² that gathers soil and climate data (temperature, humidity, moisture, pH) and sends it to The Things Network (TTN); the nodes ran on a working farm and were used as live demos on student tours.
+        - Wrote C++ firmware for RP2040 sensor nodes to read sensors, pack compact LoRaWAN payloads and handle uplinks; refactored it into a modular, object-oriented driver design (one class per sensor).
+        - Set up an ESP32 LoRaWAN-to-WiFi gateway and the TTN application (device registration, keys, payload decoding) to connect the field nodes to the cloud dashboard.
+      skills: [LoRaWAN, RP2040, ESP32, C++, TTN]

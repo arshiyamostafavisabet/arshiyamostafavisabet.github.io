@@ -1,0 +1,55 @@
+---
+layout: default
+title: Experience
+permalink: /experience/
+body_class: page-experience
+description: Education, work experience and design teams.
+---
+<section class="section">
+  <div class="container">
+    <h1 class="page-title">Experience</h1>
+
+    <!-- ============ EDUCATION ============ -->
+    <h2 class="section-title">Education</h2>
+    {%- for edu in site.data.education %}
+    <article class="timeline-entry">
+      <header class="timeline-header">
+        {%- if edu.logo %}<img class="timeline-logo" src="{{ edu.logo | relative_url }}" alt="{{ edu.school }} logo" loading="lazy">{% endif %}
+        <div>
+          <h3 class="timeline-org">{{ edu.school }}</h3>
+          <p class="timeline-location">{{ edu.location }}</p>
+        </div>
+      </header>
+      <section class="timeline-role">
+        <div class="timeline-role-header">
+          <h4>{{ edu.degree }}</h4>
+          <span class="date-range">{{ edu.start }} – {{ edu.end }}</span>
+        </div>
+        {%- if edu.details %}
+        <ul class="timeline-highlights">
+          {%- for d in edu.details %}<li><strong>{{ d.label }}:</strong> {{ d.value }}</li>{% endfor %}
+        </ul>
+        {%- endif %}
+        {%- if edu.courses %}
+        <h5 class="subheading">Relevant Courses</h5>
+        {% include skill-chips.html items=edu.courses %}
+        {%- endif %}
+      </section>
+    </article>
+    {%- endfor %}
+
+    <!-- ============ WORK EXPERIENCE ============ -->
+    <h2 class="section-title">Work Experience</h2>
+    {%- for entry in site.data.experience %}
+    {% include timeline-entry.html entry=entry %}
+    {%- endfor %}
+
+    <!-- ============ DESIGN TEAMS & EXTRACURRICULARS ============ -->
+    {%- if site.data.extracurriculars.size > 0 %}
+    <h2 class="section-title">Design Teams &amp; Extracurriculars</h2>
+    {%- for entry in site.data.extracurriculars %}
+    {% include timeline-entry.html entry=entry %}
+    {%- endfor %}
+    {%- endif %}
+  </div>
+</section>

@@ -1,0 +1,82 @@
+---
+layout: default
+body_class: page-home
+---
+{%- assign profile = site.data.profile -%}
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-text">
+      <p class="hero-eyebrow">{{ profile.headline }}</p>
+      <h1 class="hero-title">{{ profile.name }}</h1>
+      <p class="hero-tagline">{{ profile.tagline }}</p>
+      {%- if profile.status %}<p class="hero-status">{{ profile.status }}</p>{% endif %}
+      <div class="hero-actions">
+        <a class="button button-primary" href="{{ '/projects/' | relative_url }}">View projects</a>
+        <a class="button" href="{{ '/resume/' | relative_url }}">Resume</a>
+        <a class="button" href="#contact">Contact</a>
+      </div>
+    </div>
+    {%- if profile.photo %}
+    <div class="hero-photo">
+      <img src="{{ profile.photo | relative_url }}" alt="Photo of {{ profile.name }}">
+    </div>
+    {%- endif %}
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" class="section">
+  <div class="container">
+    <h2 class="section-title">About</h2>
+    <div class="prose">
+      {%- for paragraph in profile.about %}
+      {{ paragraph | markdownify }}
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURED PROJECTS ============ -->
+{%- assign featured = site.projects | where: "featured", true | sort: "date" | reverse -%}
+{%- if featured.size > 0 %}
+<section id="featured" class="section">
+  <div class="container">
+    <div class="section-heading">
+      <h2 class="section-title">Featured Projects</h2>
+      <a class="section-more" href="{{ '/projects/' | relative_url }}">All projects &rarr;</a>
+    </div>
+    <div class="project-grid">
+      {%- for project in featured %}
+      {% include project-card.html project=project %}
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+{%- endif %}
+
+<!-- ============ SKILLS ============ -->
+<section id="skills" class="section">
+  <div class="container">
+    <h2 class="section-title">Technical Skills</h2>
+    <div class="skills-grid">
+      {%- for group in site.data.skills %}
+      <div class="skill-group">
+        <h3>{{ group.group }}</h3>
+        {% include skill-chips.html items=group.items %}
+      </div>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="section">
+  <div class="container">
+    <h2 class="section-title">Contact</h2>
+    <p>The best way to reach me is by email at
+      <a href="mailto:{{ profile.contact.email }}">{{ profile.contact.email }}</a>.</p>
+    {% include social-links.html %}
+  </div>
+</section>

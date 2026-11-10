@@ -1,0 +1,11 @@
+# Top navigation links (order matters).
+- title: About
+  url: /#about
+- title: Projects
+  url: /projects/
+- title: Experience
+  url: /experience/
+- title: Resume
+  url: /resume/
+- title: Contact
+  url: /#contact
