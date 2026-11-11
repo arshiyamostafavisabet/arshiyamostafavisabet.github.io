@@ -8,8 +8,8 @@ featured: true
 context: Personal project
 areas: [Hardware, Embedded, Software]
 skills: [KiCad, LTspice, Arduino, Python, C#, Unity, I²C, PWM]
-# thumbnail: /assets/images/projects/haptic-sleeve/thumbnail.jpg
-# cover: /assets/images/projects/haptic-sleeve/cover.jpg
+thumbnail: /assets/images/projects/haptic-sleeve/thumbnail.jpg
+cover: /assets/images/projects/haptic-sleeve/cover.jpg
 links:
   - label: GitHub
     url:
@@ -20,9 +20,13 @@ metrics:
     label: PWM resolution
   - value: 200–300 Hz
     label: PWM frequency range
-# gallery:
-#   - src: /assets/images/projects/haptic-sleeve/schematic.png
-#     caption: Motor driver schematic
+gallery:
+  - src: /assets/images/projects/haptic-sleeve/motor-harness.jpg
+    caption: Vibration motors with extended leads for the sleeve harness
+  - src: /assets/images/projects/haptic-sleeve/sleeve-wiring.jpg
+    caption: Motors mounted on the sleeve fabric during wiring
+  # - src: /assets/images/projects/haptic-sleeve/schematic.png
+  #   caption: Motor driver schematic
 ---
 
 ## Overview
